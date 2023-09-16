@@ -6,6 +6,7 @@ import searchIcon from './icon/search-outline.svg';
 function buttonGenerator(id, icon) {
   let button = document.createElement('button');
   button.id = id;
+
   let img = document.createElement('img');
   img.setAttribute('src', icon);
 
@@ -16,25 +17,20 @@ function buttonGenerator(id, icon) {
 
 let CreateMenu = () => {
   let menu = buttonGenerator('menu', menuIcon);
-  
-
   return menu;
 }
 
 let CreateHome = () => {
   let home = buttonGenerator('home', homeIcon);
-
   return home;
 }
 
 let createAdd = () => {
   let add = buttonGenerator('add', addIcon);
-
   return add;
 }
 
 let createSearch = () => {
-  
   let input = document.createElement('input');
   input.type = 'text';
   input.placeholder = 'Search';
@@ -51,9 +47,7 @@ let createSearch = () => {
 
   label.appendChild(icon)
   label.appendChild(input);
-
   search.appendChild(label);
-
 
   return search;
 }
@@ -61,18 +55,15 @@ let createSearch = () => {
 
 export default () => {
   let nav = document.createElement('div');
-  nav.setAttribute('id', 'nav');
-
   let right = document.createElement('div');
-  right.setAttribute('id', 'right');
-
   let left = document.createElement('div');
+  nav.setAttribute('id', 'nav');
+  right.setAttribute('id', 'right');
   left.setAttribute('id', 'left');
 
   left.appendChild(CreateMenu());
   left.appendChild(CreateHome());
   right.appendChild(createAdd());
-
   nav.appendChild(left);
   nav.appendChild(createSearch());
   nav.appendChild(right);
