@@ -3,8 +3,6 @@ import add from './icon/add-outline.svg';
 let sideBar = document.createElement('div');
 sideBar.setAttribute('id', 'sidebar');
 
-
-
 let dashboardList = () => {
   let dashboardSection = document.createElement('div');
   dashboardSection.setAttribute('id', 'dashboard-section');

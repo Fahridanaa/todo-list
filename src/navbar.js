@@ -3,6 +3,7 @@ import homeIcon from './icon/home-outline.svg';
 import addIcon from './icon/add-outline.svg';
 import searchIcon from './icon/search-outline.svg';
 
+
 function buttonGenerator(id, icon) {
   let button = document.createElement('button');
   button.id = id;
@@ -15,8 +16,12 @@ function buttonGenerator(id, icon) {
   return button;
 }
 
-let CreateMenu = () => {
+let menu = () => {
   let menu = buttonGenerator('menu', menuIcon);
+  menu.addEventListener('click', () => {
+    let sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+  });
   return menu;
 }
 
@@ -61,7 +66,7 @@ export default () => {
   right.setAttribute('id', 'right');
   left.setAttribute('id', 'left');
 
-  left.appendChild(CreateMenu());
+  left.appendChild(menu());
   left.appendChild(CreateHome());
   right.appendChild(createAdd());
   nav.appendChild(left);
