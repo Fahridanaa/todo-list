@@ -28,11 +28,11 @@ button {
   background-color: var(--color-primary-1);
   color: var(--color-primary-3);
   font-weight: 700;
-  height: 100%;
+  height: 95%;
   padding: 10px;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   transition: transform 0.3s ease;
   transform: translateX(-100%);
 }
@@ -100,14 +100,17 @@ button {
   border: none;
   cursor: pointer;
   border-radius: 10px;
+  padding: 5px;
+}
+
+#nav button:hover {
+  background-color: rgb(255, 235, 224);
 }
 
 button img {
-  width: 100%;
-  height: 100%;
+  height: 90%;
   border-radius: 10px;
 }
-
 
 #search > label {
   display: flex;
