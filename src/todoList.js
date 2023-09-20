@@ -1,4 +1,4 @@
-const { add } = require("date-fns");
+import todo from './todo.js';
 
 let todoList = new Array(todo);
 
@@ -14,8 +14,4 @@ getTodoList = () => {
   return todoList;
 }
 
-module.exports = {
-  addTodo,
-  removeTodo,
-  getTodoList
-}
+module.exports = {todoList};

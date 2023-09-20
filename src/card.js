@@ -1,3 +1,5 @@
+import todo from './todo.js';
+
 export default function(title, description, dueDate, priority, notes, checklist, project) {
   let card = document.createElement('div');
   card.setAttribute('class', 'card');

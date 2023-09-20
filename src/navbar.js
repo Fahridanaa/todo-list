@@ -3,7 +3,6 @@ import homeIcon from './icon/home-outline.svg';
 import addIcon from './icon/add-outline.svg';
 import searchIcon from './icon/search-outline.svg';
 
-
 function buttonGenerator(id, icon) {
   let button = document.createElement('button');
   button.id = id;
@@ -30,10 +29,21 @@ let CreateHome = () => {
   return home;
 }
 
-let createAdd = () => {
+let Add = () => {
   let add = buttonGenerator('add', addIcon);
+
+  add.addEventListener('click', () => {
+  document.addEventListener('DOMContentLoaded', () => {
+    let modal = document.getElementById('todoModal');
+      console.log(modal);
+      modal.classList.toggle('hide');
+    });
+  });
+  
   return add;
 }
+
+
 
 let createSearch = () => {
   let input = document.createElement('input');
@@ -68,7 +78,7 @@ export default () => {
 
   left.appendChild(menu());
   left.appendChild(CreateHome());
-  right.appendChild(createAdd());
+  right.appendChild(Add());
   nav.appendChild(left);
   nav.appendChild(createSearch());
   nav.appendChild(right);

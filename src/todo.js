@@ -1,11 +1,8 @@
-class todo {
-  constructor(title, description, dueDate, priority, notes, checklist, project) {
+export default class todo {
+  constructor(title, description, dueDate, project) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
-    this.priority = priority;
-    this.notes = notes;
-    this.checklist = checklist;
     this.project = project;
   }
 
@@ -19,18 +16,6 @@ class todo {
 
   getDueDate() {
     return this.dueDate;
-  }
-
-  getPriority() {
-    return this.priority;
-  }
-
-  getNotes() {
-    return this.notes;
-  }
-
-  getChecklist() {
-    return this.checklist;
   }
 
   getProject() {
@@ -47,18 +32,6 @@ class todo {
 
   setDueDate(dueDate) {
     this.dueDate = dueDate;
-  }
-
-  setPriority(priority) {
-    this.priority = priority;
-  }
-
-  setNotes(notes) {
-    this.notes = notes;
-  }
-
-  setChecklist(checklist) {
-    this.checklist = checklist;
   }
 
   setProject(project) {
