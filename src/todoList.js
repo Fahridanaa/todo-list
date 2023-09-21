@@ -1,17 +1,17 @@
-import todo from './todo.js';
+import Todo from './todo.js';
 
-let todoList = new Array(todo);
+let list = new Array(Todo);
 
-addTodo = (todo) => {
-  todoList.push(todo);
+let todoList = {
+  addTodo: (Todo) => {
+    list.push(Todo);
+  },
+  removeTodo: (Todo) => {
+    list.splice(list.indexOf(Todo), 1);
+  },
+  getTodoList: () => {
+    return list;
+  }
 }
 
-removeTodo = (todo) => {
-  todoList.splice(todoList.indexOf(todo), 1);
-}
-
-getTodoList = () => {
-  return todoList;
-}
-
-module.exports = {todoList};
+export default todoList;

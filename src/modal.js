@@ -1,20 +1,25 @@
-export default function() {
-  let modal = document.createElement('div');
-  modal.setAttribute('id', 'todoModal');
+import Todo from "./todo";
+import todoList from "./todoList";
 
-  let form = document.createElement('form');
-  form.setAttribute('id', 'todoForm');
-
+let Title = () => {
   let inputTitle = document.createElement('input');
   inputTitle.setAttribute('type', 'text');
   inputTitle.setAttribute('id', 'inputTitle');
   inputTitle.setAttribute('placeholder', 'Task Name');
 
+  return inputTitle;
+}
+
+let Description = () => {
   let inputDescription = document.createElement('input');
   inputDescription.setAttribute('type', 'text');
   inputDescription.setAttribute('id', 'inputDescription');
   inputDescription.setAttribute('placeholder', 'Description');
 
+  return inputDescription;
+}
+
+let DueDate = () => {
   let inputDueDate = document.createElement('input');
   inputDueDate.setAttribute('type', 'date');
   inputDueDate.setAttribute('id', 'inputDueDate');
@@ -29,6 +34,10 @@ export default function() {
   dueDate.appendChild(labelDueDate);
   dueDate.appendChild(inputDueDate);
 
+  return dueDate;
+}
+
+let Project = () => {
   let chooseProject = document.createElement('div');
   chooseProject.setAttribute('id', 'chooseProject');
 
@@ -39,30 +48,28 @@ export default function() {
   let selectProject = document.createElement('select');
   selectProject.setAttribute('id', 'selectProject');
 
-  let chooseOption = document.createElement('div');
-  chooseOption.setAttribute('id', 'chooseOption');
-  
-  chooseProject.appendChild(label);
-  chooseProject.appendChild(selectProject);
-  
-  chooseOption.appendChild(dueDate);
-  chooseOption.appendChild(chooseProject);
-
   let projectOption = document.createElement('option');
   projectOption.setAttribute('value', 'default');
   projectOption.textContent = 'Default';
 
   selectProject.appendChild(projectOption);
+  
+  chooseProject.appendChild(label);
+  chooseProject.appendChild(selectProject);
 
-  form.appendChild(inputTitle);
-  form.appendChild(inputDescription);
-  form.appendChild(chooseOption);
+  return chooseProject;
+}
 
+let submit = () => {
   let submit = document.createElement('button');
   submit.setAttribute('type', 'submit');
   submit.setAttribute('id', 'submit');
   submit.textContent = 'Add Task';
 
+  return submit;
+}
+
+let cancel = (form, modal) => {
   let cancel = document.createElement('button');
   cancel.setAttribute('type', 'button');
   cancel.setAttribute('id', 'cancel');
@@ -72,11 +79,45 @@ export default function() {
     form.reset();
   });
 
+  return cancel;
+}
+
+export default function() {
+  let modal = document.createElement('div');
+  modal.setAttribute('id', 'todoModal');
+
+  let form = document.createElement('form');
+  form.setAttribute('id', 'todoForm');
+
+  form.addEventListener('submit', () => {
+
+    let formData = new FormData(form);
+
+    let title = formData.get('title');
+    let description = formData.get('description');
+    let dueDate = formData.get('dueDate');
+    let project = formData.get('project');
+
+    let todo1 = new Todo(title, description, dueDate, project);
+    todoList.addTodo(todo1);
+    console.log(todoList);
+  });
+
+  let chooseOption = document.createElement('div');
+  chooseOption.setAttribute('id', 'chooseOption');
+  
+  chooseOption.appendChild(DueDate());
+  chooseOption.appendChild(Project());
+
+  form.appendChild(Title());
+  form.appendChild(Description());
+  form.appendChild(chooseOption);
+
   let buttons = document.createElement('div');
   buttons.setAttribute('id', 'buttons');
 
-  buttons.appendChild(cancel);
-  buttons.appendChild(submit);
+  buttons.appendChild(cancel(form, modal));
+  buttons.appendChild(submit());
 
   form.appendChild(buttons);
 
