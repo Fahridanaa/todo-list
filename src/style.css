@@ -134,27 +134,95 @@ button img {
   outline: none;
 }
 
-.todoModal {
+#todoModal {
+  display: none;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  overflow: auto;
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */  
 }
 
-.hide {
-  display: none;
-}
-
 #todoForm {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 35%;
+  height: 25%;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
+#todoForm > * {
+  border: none;
+}
+
+#todoForm > #inputTitle {
+  flex: 2;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+#todoForm > #inputDescription {
+  flex: 1;
+}
+
+#todoForm > #chooseOption {
+  flex: 2;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#todoForm > #chooseOption > div {
+  display: flex;
+  flex-direction: column;
+}
+
+#todoForm > #chooseOption > div > label {
+  font-size: .8rem;
+  height: 2rem;
+}
+
+#todoForm > #chooseOption > div > input {
+  width: 80%;
+}
+
+#todoForm > #chooseOption > div > select {
+  width: 80%;
+  border-radius: 0px;
+}
+
+#todoForm > #buttons {
+  flex: 2;
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+#todoForm > #buttons > button {
+  padding: 5px;
+  border-radius: 5px;
+  width: 15%;
+  text-align: center;
+}
+
+#todoForm > #buttons > button#submit {
+  background-color: var(--color-primary-2);
+  color: var(--color-primary-1);
+}
+
+#todoForm > #buttons > button:hover {
+  background-color: rgba(0,0,0,0.4);
+  color: #f3f3f3
+}
+
+input:focus {
+  outline:none!important;
+}

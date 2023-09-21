@@ -33,11 +33,9 @@ let Add = () => {
   let add = buttonGenerator('add', addIcon);
 
   add.addEventListener('click', () => {
-  document.addEventListener('DOMContentLoaded', () => {
     let modal = document.getElementById('todoModal');
-      console.log(modal);
-      modal.classList.toggle('hide');
-    });
+    console.log(modal);
+    modal.style.display = 'block';
   });
   
   return add;
