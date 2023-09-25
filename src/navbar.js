@@ -34,6 +34,7 @@ let Add = () => {
 
   add.addEventListener('click', () => {
     let modal = document.getElementById('todoModal');
+    console.log(modal);
     modal.style.display = 'block';
   });
   
