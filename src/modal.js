@@ -1,11 +1,12 @@
 import Todo from "./todo";
-import todoList from "./todoList";
 
 let Title = () => {
   let inputTitle = document.createElement('input');
   inputTitle.setAttribute('type', 'text');
   inputTitle.setAttribute('id', 'inputTitle');
   inputTitle.setAttribute('placeholder', 'Task Name');
+  inputTitle.setAttribute('name', 'title');
+  inputTitle.setAttribute('required', '');
 
   return inputTitle;
 }
@@ -15,6 +16,7 @@ let Description = () => {
   inputDescription.setAttribute('type', 'text');
   inputDescription.setAttribute('id', 'inputDescription');
   inputDescription.setAttribute('placeholder', 'Description');
+  inputDescription.setAttribute('name', 'description');
 
   return inputDescription;
 }
@@ -23,6 +25,7 @@ let DueDate = () => {
   let inputDueDate = document.createElement('input');
   inputDueDate.setAttribute('type', 'date');
   inputDueDate.setAttribute('id', 'inputDueDate');
+  inputDueDate.setAttribute('name', 'dueDate');
 
   let labelDueDate = document.createElement('label');
   labelDueDate.setAttribute('for', 'inputDueDate');
@@ -47,6 +50,7 @@ let Project = () => {
 
   let selectProject = document.createElement('select');
   selectProject.setAttribute('id', 'selectProject');
+  selectProject.setAttribute('name', 'project');
 
   let projectOption = document.createElement('option');
   projectOption.setAttribute('value', 'default');
@@ -85,22 +89,23 @@ let cancel = (form, modal) => {
 export default function() {
   let modal = document.createElement('div');
   modal.setAttribute('id', 'todoModal');
-
+  
   let form = document.createElement('form');
   form.setAttribute('id', 'todoForm');
-
+  
   form.addEventListener('submit', () => {
-
+    console.log("SUBMIT");
+    let todoArray = JSON.parse(localStorage.getItem('todoData')) || [];
     let formData = new FormData(form);
 
     let title = formData.get('title');
     let description = formData.get('description');
     let dueDate = formData.get('dueDate');
-    let project = formData.get('project');
+    
+    let todo1 = new Todo(title, description, dueDate, false);
+    todoArray.push(todo1);
 
-    let todo1 = new Todo(title, description, dueDate, project);
-    todoList.addTodo(todo1);
-    console.log(todoList);
+    localStorage.setItem('todoData', JSON.stringify(todoArray));
   });
 
   let chooseOption = document.createElement('div');
