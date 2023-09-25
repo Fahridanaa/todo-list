@@ -59,8 +59,9 @@ function createForm() {
     const title = formData.get('title');
     const description = formData.get('description');
     const dueDate = formData.get('dueDate');
+    const project = formData.get('project');
 
-    const todo = new Todo(title, description, dueDate, false);
+    const todo = new Todo(title, description, dueDate, project, false);
     todoArray.push(todo);
 
     localStorage.setItem('todoData', JSON.stringify(todoArray));
