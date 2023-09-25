@@ -1,20 +1,21 @@
 import './style.css';
-import nav from './navbar.js';
-import sidebar from './sidebar.js';
-import modal from './modal.js';
-import main from './main';
+import createNavbar from './navbar.js';
+import createModal from './modal.js';
+import createMain from './main.js';
 
-// make app pages
-let app = () => {
-    let app = document.createElement('div');
-    app.setAttribute('id', 'app');
-    app.appendChild(modal());
-    app.appendChild(nav());
-    app.appendChild(sidebar());
-    app.appendChild(main());
-    return app;
+function createApp() {
+  const app = document.createElement('div');
+  app.setAttribute('id', 'app');
+
+  const components = [createModal, createNavbar, createMain];
+
+  components.forEach(component => {
+    app.appendChild(component());
+  });
+
+  return app;
 }
 
 window.onload = () => {
-    document.body.appendChild(app());
-}
+  document.body.appendChild(createApp());
+};

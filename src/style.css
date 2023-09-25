@@ -160,6 +160,7 @@ button img {
 
 #todoForm > * {
   border: none;
+  flex: 1;
 }
 
 #todoForm > #inputTitle {
@@ -168,34 +169,14 @@ button img {
   font-size: 1.4rem;
 }
 
-#todoForm > #inputDescription {
-  flex: 1;
-}
-
-#todoForm > #chooseOption {
-  flex: 2;
+#dueDate {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  gap: 8px;
 }
 
-#todoForm > #chooseOption > div {
+#chooseProject {
   display: flex;
-  flex-direction: column;
-}
-
-#todoForm > #chooseOption > div > label {
-  font-size: .8rem;
-  height: 2rem;
-}
-
-#todoForm > #chooseOption > div > input {
-  width: 80%;
-}
-
-#todoForm > #chooseOption > div > select {
-  width: 80%;
-  border-radius: 0px;
+  gap: 8px;
 }
 
 #todoForm > #buttons {
@@ -246,7 +227,7 @@ input:focus {
   border-radius: 25px;
   display: flex;
   gap: 8px;
-  padding: 16px 0px 16px 16px;
+  padding: 16px 8px 16px 16px;
   box-shadow: 0 0 5px rgba(0,0,0,0.4);
 }
 
@@ -272,13 +253,12 @@ input:focus {
 }
 
 .card .card-clear {
-  flex: 1;
   background-color: var(--color-primary-1);
   height: 2rem;
 }
 
 .card .card-content {
-  flex: 1;
+  flex: 3;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

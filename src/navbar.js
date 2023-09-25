@@ -3,11 +3,11 @@ import homeIcon from './icon/home-outline.svg';
 import addIcon from './icon/add-outline.svg';
 import searchIcon from './icon/search-outline.svg';
 
-function buttonGenerator(id, icon) {
-  let button = document.createElement('button');
+function createButton(id, icon) {
+  const button = document.createElement('button');
   button.id = id;
 
-  let img = document.createElement('img');
+  const img = document.createElement('img');
   img.setAttribute('src', icon);
 
   button.appendChild(img);
@@ -15,71 +15,66 @@ function buttonGenerator(id, icon) {
   return button;
 }
 
-let menu = () => {
-  let menu = buttonGenerator('menu', menuIcon);
-  menu.addEventListener('click', () => {
-    let sidebar = document.getElementById('sidebar');
+function createMenuButton() {
+  const menuButton = createButton('menu', menuIcon);
+  menuButton.addEventListener('click', () => {
+    const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('active');
   });
-  return menu;
+  return menuButton;
 }
 
-let CreateHome = () => {
-  let home = buttonGenerator('home', homeIcon);
-  return home;
+function createHomeButton() {
+  return createButton('home', homeIcon);
 }
 
-let Add = () => {
-  let add = buttonGenerator('add', addIcon);
-
-  add.addEventListener('click', () => {
-    let modal = document.getElementById('todoModal');
-    console.log(modal);
+function createAddButton() {
+  const addButton = createButton('add', addIcon);
+  addButton.addEventListener('click', () => {
+    const modal = document.getElementById('todoModal');
     modal.style.display = 'block';
   });
-  
-  return add;
+  return addButton;
 }
 
-
-
-let createSearch = () => {
-  let input = document.createElement('input');
+function createSearch() {
+  const input = document.createElement('input');
   input.type = 'text';
   input.placeholder = 'Search';
   input.id = 'search-input';
-  
-  let icon = document.createElement('img');
+
+  const icon = document.createElement('img');
   icon.setAttribute('src', searchIcon);
-  
-  let label = document.createElement('label');
+
+  const label = document.createElement('label');
   label.setAttribute('for', 'search-input');
-  
-  let search = document.createElement('div');
-  search.id = 'search';
-
-  label.appendChild(icon)
+  label.appendChild(icon);
   label.appendChild(input);
-  search.appendChild(label);
 
-  return search;
+  const searchDiv = document.createElement('div');
+  searchDiv.id = 'search';
+  searchDiv.appendChild(label);
+
+  return searchDiv;
 }
 
+export default function createNavBar() {
+  const nav = document.createElement('div');
+  const right = document.createElement('div');
+  const left = document.createElement('div');
 
-export default () => {
-  let nav = document.createElement('div');
-  let right = document.createElement('div');
-  let left = document.createElement('div');
   nav.setAttribute('id', 'nav');
   right.setAttribute('id', 'right');
   left.setAttribute('id', 'left');
 
-  left.appendChild(menu());
-  left.appendChild(CreateHome());
-  right.appendChild(Add());
+  left.appendChild(createMenuButton());
+  left.appendChild(createHomeButton());
+  right.appendChild(createAddButton());
+
   nav.appendChild(left);
   nav.appendChild(createSearch());
   nav.appendChild(right);
 
   return nav;
 }
+  
