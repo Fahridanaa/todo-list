@@ -2,6 +2,7 @@ import menuIcon from './icon/menu-outline.svg';
 import homeIcon from './icon/home-outline.svg';
 import addIcon from './icon/add-outline.svg';
 import searchIcon from './icon/search-outline.svg';
+import { getDashboardButton } from './sidebar';
 
 function createButton(id, icon) {
   const button = document.createElement('button');
@@ -25,7 +26,16 @@ function createMenuButton() {
 }
 
 function createHomeButton() {
-  return createButton('home', homeIcon);
+  const home = createButton('home', homeIcon);
+  home.addEventListener('click', () => {
+    const dashboardButton = document.getElementById('dashboard');
+
+    if (dashboardButton) {
+      dashboardButton.click(); // Klik tombol Dashboard
+    }
+    console.log("GNOK COK");
+  });
+  return home;
 }
 
 function createAddButton() {

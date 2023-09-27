@@ -45,6 +45,7 @@ button {
   height: 6rem;
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 #project-section > .section-title {
@@ -277,4 +278,14 @@ input:focus {
 
 .card > .card-content > .card-date {
   flex: 1;
+}
+
+.btn-active {
+  background-color: var(--color-primary-2);
+  color: var(--color-primary-1);
+}
+
+#dashboard-section button:hover, #project-list button.btn-active:hover {
+  background-color: var(--color-primary-2);
+  color: var(--color-primary-1);
 }
