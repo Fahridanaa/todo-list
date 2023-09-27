@@ -56,10 +56,6 @@ function createDashboardSection() {
   return dashboardSection;
 }
 
-function getDashboardButton() {
-  return document.getElementById('dashboardButton');
-}
-
 function createSidebar() {
   const sidebar = document.createElement('div');
   sidebar.setAttribute('id', 'sidebar');
@@ -70,4 +66,4 @@ function createSidebar() {
   return sidebar;
 }
 
-export { createSidebar, filterTodo, getDashboardButton };
+export { createSidebar, filterTodo };
