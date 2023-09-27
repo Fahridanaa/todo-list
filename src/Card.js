@@ -49,11 +49,12 @@ class Card {
 
     const checklistElement = document.createElement('input');
     checklistElement.setAttribute('type', 'checkbox');
+    checklistElement.id = `checkbox-${this.index}`;
     checklistElement.checked = this.todo.isCompleted;
 
     checklistElement.addEventListener('change', () => {
       let todoArray = JSON.parse(localStorage.getItem('todoData')) || [];
-      todoArray[this.index].isCompleted = !todoArray[this.index].isCompleted;
+      todoArray[this.index].isCompleted = checklistElement.checked;
       localStorage.setItem('todoData', JSON.stringify(todoArray));
     });
 

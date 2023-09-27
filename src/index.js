@@ -18,4 +18,5 @@ function createApp() {
 
 window.onload = () => {
   document.body.appendChild(createApp());
+  document.getElementById('dashboard').click();
 };

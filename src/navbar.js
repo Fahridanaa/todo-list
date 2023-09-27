@@ -28,7 +28,6 @@ function createHomeButton() {
   const home = createButton('home', homeIcon);
   home.addEventListener('click', () => {
     const dashboardButton = document.getElementById('dashboard');
-
     if (dashboardButton) {
       dashboardButton.click(); // Klik tombol Dashboard
     }

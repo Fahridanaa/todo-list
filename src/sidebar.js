@@ -2,14 +2,12 @@ import isToday from "date-fns/isToday";
 import Card from "./Card";
 import { parseISO } from "date-fns";
 
-function filterTodayTodo() {
-  const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+function filterTodayTodo(todoData) {
   const todayTodo = todoData.filter(todo => isToday(parseISO(todo.dueDate)));
   todoLoader(todayTodo);
 }
 
-function filterCompletedTodo() {
-  const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+function filterCompletedTodo(todoData) {
   const completedTodo = todoData.filter(todo => todo.isCompleted);
   todoLoader(completedTodo);
 }
@@ -43,7 +41,8 @@ function createDashboardButton() {
 function createTodayButton() {
   const todayButton = createButton('Today');
   todayButton.addEventListener('click', () => {
-    filterTodayTodo();
+    const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+    filterTodayTodo(todoData);
   });
   return todayButton;
 }
@@ -51,7 +50,8 @@ function createTodayButton() {
 function createCompletedButton() {
   const completedButton = createButton('Completed');
   completedButton.addEventListener('click', () => {
-    filterCompletedTodo();
+    const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+    filterCompletedTodo(todoData);
   });
   return completedButton;
 }
