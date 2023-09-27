@@ -45,7 +45,7 @@ button {
   height: 6rem;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 #project-section > .section-title {

@@ -2,21 +2,22 @@ import isToday from "date-fns/isToday";
 import Card from "./Card";
 import { parseISO } from "date-fns";
 
-function filterTodayTodo(todoList) {
-  if(todoList === undefined || todoList.length == 0) { return; }
-  return todoList.filter(todo => isToday(parseISO(todo.dueDate)));
+function filterTodayTodo() {
+  const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+  const todayTodo = todoData.filter(todo => isToday(parseISO(todo.dueDate)));
+  todoLoader(todayTodo);
 }
 
-function filterTodo(isToday) {
+function filterCompletedTodo() {
+  const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+  const completedTodo = todoData.filter(todo => todo.isCompleted);
+  todoLoader(completedTodo);
+}
+
+function todoLoader(todoData) {
   const cards = document.getElementById('cards');
   cards.innerHTML = '';
-
-  const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
-  const filteredTodo = isToday
-    ? filterTodayTodo(todoData)
-    : todoData;
-
-  filteredTodo.forEach((todo, index) => {
+  todoData.forEach((todo, index) => {
     const card = new Card(todo, index);
     cards.appendChild(card.element);
   });
@@ -30,14 +31,39 @@ function createButton(text) {
   return button;
 }
 
+function createDashboardButton() {
+  const dashboardButton = createButton('Dashboard');
+  dashboardButton.addEventListener('click', () => {
+    const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+    todoLoader(todoData);
+  });
+  return dashboardButton;
+}
+
+function createTodayButton() {
+  const todayButton = createButton('Today');
+  todayButton.addEventListener('click', () => {
+    filterTodayTodo();
+  });
+  return todayButton;
+}
+
+function createCompletedButton() {
+  const completedButton = createButton('Completed');
+  completedButton.addEventListener('click', () => {
+    filterCompletedTodo();
+  });
+  return completedButton;
+}
+
 function createDashboardSection() {
   const dashboardSection = document.createElement('div');
   dashboardSection.setAttribute('id', 'dashboard-section');
 
-  const dashboardContent = ['Dashboard', 'Today'];
+  const dashboardContent = [createDashboardButton(), createTodayButton(), createCompletedButton()];
 
   for (let index = 0; index < dashboardContent.length; index++) {
-    let btn = createButton(dashboardContent[index]);
+    let btn = dashboardContent[index];
     dashboardSection.appendChild(btn);
     btn.addEventListener('click', () => {
       const current = dashboardSection.getElementsByClassName("btn-active");
@@ -45,11 +71,6 @@ function createDashboardSection() {
         current[0].className = '';
       }
       btn.className += "btn-active";
-      if (index === 1) {
-        filterTodo(true);
-        return;
-      }
-      filterTodo(false);
     });
   }
 
@@ -66,4 +87,4 @@ function createSidebar() {
   return sidebar;
 }
 
-export { createSidebar, filterTodo };
+export { createSidebar };
