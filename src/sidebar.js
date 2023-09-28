@@ -13,6 +13,11 @@ function filterCompletedTodo(todoData) {
   todoLoader(completedTodo);
 }
 
+function filterUncompletedTodo(todoData) {
+  const uncompletedTodo = todoData.filter(todo => !todo.isCompleted);
+  todoLoader(uncompletedTodo);
+}
+
 function todoLoader(todoData) {
   const cards = document.getElementById('cards');
   cards.innerHTML = '';
@@ -34,7 +39,7 @@ function createDashboardButton() {
   const dashboardButton = createButton('Dashboard');
   dashboardButton.addEventListener('click', () => {
     const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
-    todoLoader(todoData);
+    filterUncompletedTodo(todoData);
   });
   return dashboardButton;
 }
@@ -57,53 +62,82 @@ function createCompletedButton() {
   return completedButton;
 }
 
+function clickHandler(section, content) {
+  content.addEventListener('click', () => {
+    const current = document.getElementsByClassName("btn-active");
+    if (current.length > 0) {
+      current[0].className = '';
+    }
+    content.className += "btn-active";
+  });
+  section.appendChild(content);
+}
+
 function createDashboardSection() {
   const dashboardSection = document.createElement('div');
   dashboardSection.setAttribute('id', 'dashboard-section');
 
   const dashboardContent = [createDashboardButton(), createTodayButton(), createCompletedButton()];
 
-  for (let index = 0; index < dashboardContent.length; index++) {
-    let btn = dashboardContent[index];
-    dashboardSection.appendChild(btn);
-    btn.addEventListener('click', () => {
-      const current = dashboardSection.getElementsByClassName("btn-active");
-      if (current.length > 0) {
-        current[0].className = '';
-      }
-      btn.className += "btn-active";
-    });
-  }
+  dashboardContent.forEach(content => {
+    clickHandler(dashboardSection, content);
+  });
 
   return dashboardSection;
 }
 
+function createAddProjectButton() {
+  const addProjectButton = document.createElement('button');
+  addProjectButton.setAttribute('id', 'add-project');
+  const addIconImg = document.createElement('img');
+  addIconImg.setAttribute('src', addIcon);
+
+  addProjectButton.appendChild(addIconImg);
+
+  addProjectButton.addEventListener('click', () => {
+    const modal = document.getElementById('modal');
+    modal.style.display = 'block';
+    const projectBtn = document.getElementById('ProjectModalBtn');
+    projectBtn.click();
+  });
+
+  return addProjectButton;
+}
+
+function createProjectList() {
+  const projectList = document.createElement('div');
+  projectList.setAttribute('id', 'project-list');
+  
+  const projectData = JSON.parse(localStorage.getItem('projectData')) || [];
+
+  projectData.forEach(project => {
+    const projectItem = createButton(project);
+    projectItem.addEventListener('click', () => {
+      const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+      const filteredTodo = todoData.filter(todo => todo.project === project);
+      todoLoader(filteredTodo);
+    });
+    clickHandler(projectList, projectItem);
+  });
+
+  return projectList;
+}
+
 function createProjectSection() {
-  const projectContent = [];
   const projectSection = document.createElement('div');
   projectSection.setAttribute('id', 'project-section');
 
   const title = document.createElement('h4');
   title.innerHTML = 'Projects';
 
-  const addProjectButton = document.createElement('button');
-  addProjectButton.setAttribute('id', 'add-project');
-  const addIconImg = document.createElement('img');
-  addIconImg.setAttribute('src', addIcon);
-
   const projectHeader = document.createElement('div');
   projectHeader.setAttribute('id', 'project-header');
 
-  const projectList = document.createElement('div');
-  projectList.setAttribute('id', 'project-list');
-
-  addProjectButton.appendChild(addIconImg);
-
   projectHeader.appendChild(title);
-  projectHeader.appendChild(addProjectButton);
+  projectHeader.appendChild(createAddProjectButton());
 
   projectSection.appendChild(projectHeader);
-  projectSection.appendChild(projectList);
+  projectSection.appendChild(createProjectList());
 
   return projectSection;
 }

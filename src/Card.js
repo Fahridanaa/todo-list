@@ -9,7 +9,7 @@ class Card {
 
   createCardElement() {
     const card = document.createElement('div');
-    card.classList.add('card', `card-${this.index}`);
+    card.classList.add('card', `card-${this.index}`); 
 
     const cardContent = document.createElement('div');
     cardContent.classList.add('card-content');
@@ -34,28 +34,35 @@ class Card {
 
     const clearElement = document.createElement('button');
     clearElement.classList.add('card-clear');
+    clearElement.addEventListener('click', () => {
+      let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+      let todoIndex = todoData.findIndex(todo => todo.title === this.todo.title);
+
+      if(todoIndex !== -1) {
+      todoData.splice(todoIndex, 1);
+      localStorage.setItem('todoData', JSON.stringify(todoData));
+      location.reload();
+      }
+    });
 
     const clearIconImg = document.createElement('img');
     clearIconImg.setAttribute('src', clearIcon);
 
     clearElement.appendChild(clearIconImg);
 
-    clearElement.addEventListener('click', () => {
-      let todoArray = JSON.parse(localStorage.getItem('todoData')) || [];
-      todoArray.splice(this.index, 1);
-      localStorage.setItem('todoData', JSON.stringify(todoArray));
-      location.reload();
-    });
-
     const checklistElement = document.createElement('input');
     checklistElement.setAttribute('type', 'checkbox');
     checklistElement.id = `checkbox-${this.index}`;
     checklistElement.checked = this.todo.isCompleted;
-
     checklistElement.addEventListener('change', () => {
-      let todoArray = JSON.parse(localStorage.getItem('todoData')) || [];
-      todoArray[this.index].isCompleted = checklistElement.checked;
-      localStorage.setItem('todoData', JSON.stringify(todoArray));
+      this.isCompleted = checklistElement.checked;
+      let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+      let todoIndex = todoData.findIndex(todo => todo.title === this.todo.title);
+
+      if(todoIndex !== -1) {
+        todoData[todoIndex].isCompleted = this.isCompleted;
+        localStorage.setItem('todoData', JSON.stringify(todoData));
+      }
     });
 
     cardContent.appendChild(textContent);

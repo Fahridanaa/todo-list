@@ -140,9 +140,17 @@ function createProjectSelection() {
 
   const label = createLabelForElement('selectProject', 'Choose a project:');
   const selectProject = createSelectElement('selectProject', 'project');
-  const projectOption = createOptionElement('default', 'Default');
+  selectProject.value = 'default';
 
-  selectProject.appendChild(projectOption);
+  let defaultOption = createOptionElement('default', 'Default');
+  selectProject.appendChild(defaultOption);
+
+  if(localStorage.getItem('projectData')) {
+    JSON.parse(localStorage.getItem('projectData')).map(project => {
+      let projectOption = createOptionElement(project, project);
+      selectProject.appendChild(projectOption);
+    });
+  }
 
   chooseProject.appendChild(label);
   chooseProject.appendChild(selectProject);
