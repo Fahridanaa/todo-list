@@ -109,7 +109,9 @@ button {
 }
 
 button img {
-  height: 90%;
+  max-width:100%;
+  max-height:100%;
+  object-fit: cover;
   border-radius: 10px;
 }
 
@@ -169,7 +171,11 @@ button img {
   border-bottom: 1px solid black;
 }
 
-#todoForm {
+#modalHeader > * {
+  height: 2rem;
+}
+
+#form {
   border-left: 1px solid black;
   padding: 25px;
   grid-area: main;
@@ -194,21 +200,29 @@ button img {
   cursor: pointer;
 }
 
+#chooseTodoType > button.btn-active {
+  font-weight: 700;
+}
+
 #chooseTodoType > button:hover {
   font-weight: 700;
 }
 
-#todoForm > * {
+#form > * {
   border: none;
 }
 
-#todoForm > #inputTitle {
+#form > #inputTitle, #inputProjectTitle {
   flex: 1;
   font-weight: 700;
   font-size: 1.8rem;
 }
 
-#todoForm > #inputDescription {
+#form > #inputProjectTitle {
+  text-align: center;
+}
+
+#form > #inputDescription {
   flex: 3;
   font-size: 1.2rem;
   resize: none;
@@ -220,32 +234,31 @@ button img {
   gap: 8px;
 }
 
-#todoForm > div > label {
+#form > div > label {
   display: flex;
   align-items: center;
 }
 
-#todoForm > #buttons {
+#form > #buttons {
   flex: .8;
   margin-top: 32px;
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 16px;
 }
 
-#todoForm > #buttons > button {
-  padding: 5px;
+#form > button {
+  padding: 8px;
   border-radius: 5px;
-  width: 15%;
   text-align: center;
 }
 
-#todoForm > #buttons > button#submit {
+#form > button#submit {
   background-color: var(--color-primary-2);
   color: var(--color-primary-1);
 }
 
-#todoForm > #buttons > button:hover {
+#form > button:hover {
   background-color: rgba(0,0,0,0.4);
   color: #f3f3f3
 }
@@ -326,12 +339,12 @@ input:focus, textarea:focus, select:focus {
   flex: 1;
 }
 
-.btn-active {
+#dashboard-section button.btn-active {
   background-color: var(--color-primary-2);
   color: var(--color-primary-1);
 }
 
-#dashboard-section button:hover, #project-list button.btn-active:hover {
+#dashboard-section button:hover {
   background-color: var(--color-primary-2);
   color: var(--color-primary-1);
 }

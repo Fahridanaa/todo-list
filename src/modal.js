@@ -1,4 +1,5 @@
 import Todo from "./todo";
+import closeIcon from "./icon/close-outline.svg";
 
 function createInputElement(type, id, placeholder, name, required = false) {
   const inputElement = document.createElement('input');
@@ -51,15 +52,21 @@ function createButtonElement(type, id, textContent, clickHandler) {
   const buttonElement = document.createElement('button');
   buttonElement.setAttribute('type', type);
   buttonElement.setAttribute('id', id);
-  buttonElement.textContent = textContent;
+  buttonElement.innerHTML = textContent;
   buttonElement.addEventListener('click', clickHandler);
 
   return buttonElement;
 }
 
-function createTodoForm() {
+function createForm() {
   const formElement = document.createElement('form');
-  formElement.setAttribute('id', 'todoForm');
+  formElement.setAttribute('id', 'form');
+
+  return formElement;
+}
+
+function createTodoForm() {
+  const formElement = createForm();
 
   formElement.addEventListener('submit', () => {
     const todoArray = JSON.parse(localStorage.getItem('todoData')) || [];
@@ -75,18 +82,37 @@ function createTodoForm() {
 
     localStorage.setItem('todoData', JSON.stringify(todoArray));
   });
-
   return formElement;
 }
 
-function createCancelButton(formElement, modalElement) {
+function createProjectForm() {
+  const formElement = createForm();
+
+  formElement.addEventListener('submit', () => {
+    const projectArray = JSON.parse(localStorage.getItem('projectData')) || [];
+    const formData = new FormData(formElement);
+
+    const title = formData.get('title');
+
+    projectArray.push(title);
+
+    localStorage.setItem('projectData', JSON.stringify(projectArray));
+  });
+  return formElement;
+}
+
+function createCancelButton(modalElement, ...formElement) {
+  const closeIconElement = document.createElement('img');
+  closeIconElement.setAttribute('src', closeIcon);
   const cancelButton = createButtonElement(
     'button',
     'cancel',
-    'Cancel',
+    closeIconElement.outerHTML,
     () => {
       modalElement.style.display = 'none';
-      formElement.reset();
+      formElement.forEach(element => {
+        element.reset();
+      });
     }
   );
 
@@ -124,24 +150,41 @@ function createProjectSelection() {
   return chooseProject;
 }
 
-function createSubmitButton() {
-  return createButtonElement('submit', 'submit', 'Add Task', null);
+function createSubmitButton(text) {
+  return createButtonElement('submit', 'submit', `add ${text}`, null);
+}
+
+function modalBtn(createModal, modalBtn) {
+    const btnElement = createButtonElement('button', `${modalBtn}ModalBtn`, modalBtn, () => {
+      const formModal = document.getElementById('formModal');
+      const form = document.getElementById('form');
+      if(formModal.contains(form)) {
+        formModal.removeChild(form);
+      }
+      formModal.appendChild(createModal);
+    });
+  return btnElement;
 }
 
 function createTodoTypeSelection() {
   const chooseTodoType = document.createElement('div');
   chooseTodoType.setAttribute('id', 'chooseTodoType');
 
-  const todoModalBtn = createButtonElement('button', 'todoModalBtn', 'Todo', () => {
+  let todoModalBtn = modalBtn(createTodoModal(), 'Todo');
+  let projectModalBtn = modalBtn(createProjectModal(), 'Project');
 
+  let modalBtnList = [todoModalBtn, projectModalBtn];
+
+  modalBtnList.forEach(btn => {
+      const current = chooseTodoType.getElementsByClassName("btn-active");
+      btn.addEventListener('click', () => {
+      if (current.length > 0) {
+        current[0].className = '';
+      }
+      btn.className += "btn-active";
+    });
+    chooseTodoType.appendChild(btn);
   });
-
-  const projectModalBtn = createButtonElement('button', 'projectModalBtn', 'Project', () => {
-
-  });
-
-  chooseTodoType.appendChild(todoModalBtn);
-  chooseTodoType.appendChild(projectModalBtn);
 
   return chooseTodoType;
 }
@@ -150,12 +193,26 @@ function createTodoModal() {
   const formElement = createTodoForm();
   const taskInputElements = createTaskInputElements();
   const projectSelection = createProjectSelection();
+  const submitButton = createSubmitButton('todo');
 
   taskInputElements.forEach(element => {
     formElement.appendChild(element);
   });
 
   formElement.appendChild(projectSelection);
+  formElement.appendChild(submitButton);
+
+  return formElement;
+}
+
+function createProjectModal() {
+  const formElement = createProjectForm();
+
+  const titleInput = createInputElement('text', 'inputProjectTitle', 'Project Name', 'title', true);
+  const submitButton = createSubmitButton('project');
+
+  formElement.appendChild(titleInput);
+  formElement.appendChild(submitButton);
 
   return formElement;
 }
@@ -167,28 +224,20 @@ export default function () {
   const formModal = document.createElement('div');
   formModal.setAttribute('id', 'formModal');
 
-  const header = document.createElement('h2');
-  header.textContent = 'Add New...';
+  let formElementList = [createTodoModal(), createProjectModal()];
+  const cancelButton = createCancelButton(modalElement, ...formElementList);
+
+  const header = document.createElement('div');
   header.setAttribute('id', 'modalHeader');
+  
+  const headerContent = document.createElement('h2');
+  headerContent.textContent = 'Add New...';
+  header.appendChild(headerContent);
+  header.appendChild(cancelButton);
 
   formModal.appendChild(header);
   formModal.appendChild(createTodoTypeSelection());
 
-  let todoType = [createTodoModal()];
-
-  todoType.forEach(element => {
-    const buttonsDiv = document.createElement('div');
-    buttonsDiv.setAttribute('id', 'buttons');
-
-    const cancelButton = createCancelButton(createTodoModal(), modalElement);
-    const submitButton = createSubmitButton();
-
-    buttonsDiv.appendChild(cancelButton);
-    buttonsDiv.appendChild(submitButton);
-
-    element.appendChild(buttonsDiv);
-    formModal.appendChild(element);
-  });
 
   modalElement.appendChild(formModal);
   return modalElement;

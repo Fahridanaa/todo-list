@@ -40,6 +40,8 @@ function createAddButton() {
   addButton.addEventListener('click', () => {
     const modal = document.getElementById('modal');
     modal.style.display = 'block';
+    const todoBtn = document.getElementById('TodoModalBtn');
+    todoBtn.click();
   });
   return addButton;
 }
