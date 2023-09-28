@@ -14,6 +14,15 @@ function createInputElement(type, id, placeholder, name, required = false) {
   return inputElement;
 }
 
+function createTextAreaElement(id, placeholder, name) {
+  const textAreaElement = document.createElement('textarea');
+  textAreaElement.setAttribute('id', id);
+  textAreaElement.setAttribute('placeholder', placeholder);
+  textAreaElement.setAttribute('name', name);
+
+  return textAreaElement;
+}
+
 function createLabelForElement(forId, textContent) {
   const labelElement = document.createElement('label');
   labelElement.setAttribute('for', forId);
@@ -48,7 +57,7 @@ function createButtonElement(type, id, textContent, clickHandler) {
   return buttonElement;
 }
 
-function createForm() {
+function createTodoForm() {
   const formElement = document.createElement('form');
   formElement.setAttribute('id', 'todoForm');
 
@@ -86,7 +95,7 @@ function createCancelButton(formElement, modalElement) {
 
 function createTaskInputElements() {
   const titleInput = createInputElement('text', 'inputTitle', 'Task Name', 'title', true);
-  const descriptionInput = createInputElement('text', 'inputDescription', 'Description', 'description');
+  const descriptionInput = createTextAreaElement('inputDescription', 'Task Description', 'description');
   const dueDateInput = createInputElement('date', 'inputDueDate', '', 'dueDate');
 
   const labelDueDate = createLabelForElement('inputDueDate', 'Due Date:');
@@ -119,32 +128,68 @@ function createSubmitButton() {
   return createButtonElement('submit', 'submit', 'Add Task', null);
 }
 
-export default function createTodoModal() {
-  const modalElement = document.createElement('div');
-  modalElement.setAttribute('id', 'todoModal');
+function createTodoTypeSelection() {
+  const chooseTodoType = document.createElement('div');
+  chooseTodoType.setAttribute('id', 'chooseTodoType');
 
-  const formElement = createForm();
+  const todoModalBtn = createButtonElement('button', 'todoModalBtn', 'Todo', () => {
 
+  });
+
+  const projectModalBtn = createButtonElement('button', 'projectModalBtn', 'Project', () => {
+
+  });
+
+  chooseTodoType.appendChild(todoModalBtn);
+  chooseTodoType.appendChild(projectModalBtn);
+
+  return chooseTodoType;
+}
+
+function createTodoModal() {
+  const formElement = createTodoForm();
   const taskInputElements = createTaskInputElements();
   const projectSelection = createProjectSelection();
 
   taskInputElements.forEach(element => {
     formElement.appendChild(element);
   });
+
   formElement.appendChild(projectSelection);
 
-  const buttonsDiv = document.createElement('div');
-  buttonsDiv.setAttribute('id', 'buttons');
+  return formElement;
+}
 
-  const cancelButton = createCancelButton(formElement, modalElement);
-  const submitButton = createSubmitButton();
+export default function () {
+  const modalElement = document.createElement('div');
+  modalElement.setAttribute('id', 'modal');
 
-  buttonsDiv.appendChild(cancelButton);
-  buttonsDiv.appendChild(submitButton);
+  const formModal = document.createElement('div');
+  formModal.setAttribute('id', 'formModal');
 
-  formElement.appendChild(buttonsDiv);
+  const header = document.createElement('h2');
+  header.textContent = 'Add New...';
+  header.setAttribute('id', 'modalHeader');
 
-  modalElement.appendChild(formElement);
+  formModal.appendChild(header);
+  formModal.appendChild(createTodoTypeSelection());
 
+  let todoType = [createTodoModal()];
+
+  todoType.forEach(element => {
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.setAttribute('id', 'buttons');
+
+    const cancelButton = createCancelButton(createTodoModal(), modalElement);
+    const submitButton = createSubmitButton();
+
+    buttonsDiv.appendChild(cancelButton);
+    buttonsDiv.appendChild(submitButton);
+
+    element.appendChild(buttonsDiv);
+    formModal.appendChild(element);
+  });
+
+  modalElement.appendChild(formModal);
   return modalElement;
 }

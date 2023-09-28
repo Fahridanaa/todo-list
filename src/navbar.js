@@ -38,7 +38,7 @@ function createHomeButton() {
 function createAddButton() {
   const addButton = createButton('add', addIcon);
   addButton.addEventListener('click', () => {
-    const modal = document.getElementById('todoModal');
+    const modal = document.getElementById('modal');
     modal.style.display = 'block';
   });
   return addButton;

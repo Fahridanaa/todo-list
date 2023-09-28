@@ -135,7 +135,7 @@ button img {
   outline: none;
 }
 
-#todoModal {
+#modal {
   display: none;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -146,43 +146,88 @@ button img {
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */  
 }
 
-#todoForm {
+#formModal {
   background-color: #fefefe;
   margin: 10% auto;
-  padding: 20px;
   border: 1px solid #888;
-  width: 35%;
-  height: 25%;
+  width: 50%;
+  height: 50%;
   border-radius: 15px;
+  display: grid;
+  grid-template-rows: 1fr 9fr;
+  grid-template-columns: 1fr 1fr 4fr;
+  grid-template-areas: 
+  "header header header"
+  "left-sidebar main main";  
+}
+
+#modalHeader {
+  grid-area: header;
+  padding: 0px 16px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+#todoForm {
+  border-left: 1px solid black;
+  padding: 25px;
+  grid-area: main;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
+#chooseTodoType {
+  grid-area: left-sidebar;
+  padding: 16px;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#chooseTodoType > button {
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+#chooseTodoType > button:hover {
+  font-weight: 700;
+}
+
 #todoForm > * {
   border: none;
-  flex: 1;
 }
 
 #todoForm > #inputTitle {
-  flex: 2;
+  flex: 1;
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
 }
 
-#dueDate {
+#todoForm > #inputDescription {
+  flex: 3;
+  font-size: 1.2rem;
+  resize: none;
+}
+
+#dueDate, #chooseProject {
+  flex: 0.5;
   display: flex;
   gap: 8px;
 }
 
-#chooseProject {
+#todoForm > div > label {
   display: flex;
-  gap: 8px;
+  align-items: center;
 }
 
 #todoForm > #buttons {
-  flex: 2;
-  margin-top: 15px;
+  flex: .8;
+  margin-top: 32px;
   display: flex;
   justify-content: flex-end;
   gap: 8px;
@@ -205,7 +250,7 @@ button img {
   color: #f3f3f3
 }
 
-input:focus {
+input:focus, textarea:focus, select:focus {
   outline:none!important;
 }
 
