@@ -28,10 +28,10 @@ button {
   background-color: var(--color-primary-1);
   color: var(--color-primary-3);
   font-weight: 700;
-  height: 95%;
   padding: 10px;
   display: flex;
   flex-direction: column;
+  gap: 16px;
   overflow: hidden;
   transition: transform 0.3s ease;
   transform: translateX(-100%);
@@ -42,19 +42,19 @@ button {
 }
 
 #dashboard-section {
-  height: 6rem;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
 }
 
-#project-section > .section-title {
+#project-section > #project-header {
   height: 2rem;
   margin-bottom: 10px;
   display: flex;
 }
 
-#project-section > .section-title > h4 {
+#project-section > #project-header > h4 {
   display: flex;
   align-items: center;
 }
@@ -75,13 +75,13 @@ button {
 }
 
 #nav {
-    height: 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--color-primary-2);
-    gap: 16px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-primary-2);
+  gap: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #nav > div {
@@ -211,6 +211,7 @@ input:focus {
 
 #main {
   display: flex;
+  height: 95%;
   gap: 32px;
   padding-right: 282px;
 }

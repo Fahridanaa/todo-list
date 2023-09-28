@@ -1,7 +1,6 @@
 import {createSidebar} from './sidebar';
 
 export default function createMain() {
-  const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
   const main = document.createElement('main');
   main.setAttribute('id', 'main');
 

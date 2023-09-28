@@ -1,6 +1,7 @@
 import isToday from "date-fns/isToday";
 import Card from "./Card";
 import { parseISO } from "date-fns";
+import addIcon from "./icon/add-outline.svg";
 
 function filterTodayTodo(todoData) {
   const todayTodo = todoData.filter(todo => isToday(parseISO(todo.dueDate)));
@@ -77,12 +78,44 @@ function createDashboardSection() {
   return dashboardSection;
 }
 
+function createProjectSection() {
+  const projectContent = [];
+  const projectSection = document.createElement('div');
+  projectSection.setAttribute('id', 'project-section');
+
+  const title = document.createElement('h4');
+  title.innerHTML = 'Projects';
+
+  const addProjectButton = document.createElement('button');
+  addProjectButton.setAttribute('id', 'add-project');
+  const addIconImg = document.createElement('img');
+  addIconImg.setAttribute('src', addIcon);
+
+  const projectHeader = document.createElement('div');
+  projectHeader.setAttribute('id', 'project-header');
+
+  const projectList = document.createElement('div');
+  projectList.setAttribute('id', 'project-list');
+
+  addProjectButton.appendChild(addIconImg);
+
+  projectHeader.appendChild(title);
+  projectHeader.appendChild(addProjectButton);
+
+  projectSection.appendChild(projectHeader);
+  projectSection.appendChild(projectList);
+
+  return projectSection;
+}
+
 function createSidebar() {
   const sidebar = document.createElement('div');
   sidebar.setAttribute('id', 'sidebar');
 
   const dashboard = createDashboardSection();
+  const project = createProjectSection();
   sidebar.appendChild(dashboard);
+  sidebar.appendChild(project);
 
   return sidebar;
 }

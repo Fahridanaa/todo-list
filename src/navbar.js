@@ -29,7 +29,7 @@ function createHomeButton() {
   home.addEventListener('click', () => {
     const dashboardButton = document.getElementById('dashboard');
     if (dashboardButton) {
-      dashboardButton.click(); // Klik tombol Dashboard
+      dashboardButton.click();
     }
   });
   return home;
