@@ -1,6 +1,6 @@
 import isToday from "date-fns/isToday";
 import Card from "./Card";
-import { parseISO } from "date-fns";
+import { add, parseISO } from "date-fns";
 import addIcon from "./icon/add-outline.svg";
 
 function filterTodayTodo(todoData) {
@@ -86,17 +86,24 @@ function createDashboardSection() {
   return dashboardSection;
 }
 
-function createAddProjectButton() {
-  const addProjectButton = document.createElement('button');
-  addProjectButton.setAttribute('id', 'add-project');
+function createAddButton(id) {
+  const addButton = document.createElement('button');
+  addButton.setAttribute('id', id);
   const addIconImg = document.createElement('img');
   addIconImg.setAttribute('src', addIcon);
+  addButton.appendChild(addIconImg);
 
-  addProjectButton.appendChild(addIconImg);
-
-  addProjectButton.addEventListener('click', () => {
+  addButton.addEventListener('click', () => {
     const modal = document.getElementById('modal');
     modal.style.display = 'block';
+  });
+
+  return addButton;
+}
+
+function createAddProjectButton() {
+  const addProjectButton = createAddButton('add-project', addIcon);
+  addProjectButton.addEventListener('click', () => {
     const projectBtn = document.getElementById('ProjectModalBtn');
     projectBtn.click();
   });
@@ -142,14 +149,27 @@ function createProjectSection() {
   return projectSection;
 }
 
+function createNoteSection() {
+  const noteSection = document.createElement('div');
+  noteSection.setAttribute('id', 'notes-section');
+
+  const noteBtn = createButton('Notes');
+  
+  noteSection.appendChild(noteBtn);
+
+  return noteSection;
+}
+
 function createSidebar() {
   const sidebar = document.createElement('div');
   sidebar.setAttribute('id', 'sidebar');
 
   const dashboard = createDashboardSection();
   const project = createProjectSection();
+  const note = createNoteSection();
   sidebar.appendChild(dashboard);
   sidebar.appendChild(project);
+  sidebar.appendChild(note);
 
   return sidebar;
 }

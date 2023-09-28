@@ -180,8 +180,9 @@ function createTodoTypeSelection() {
 
   let todoModalBtn = modalBtn(createTodoModal(), 'Todo');
   let projectModalBtn = modalBtn(createProjectModal(), 'Project');
+  let notesModalBtn = modalBtn(createNotesModal(), 'Notes');
 
-  let modalBtnList = [todoModalBtn, projectModalBtn];
+  let modalBtnList = [todoModalBtn, projectModalBtn, notesModalBtn];
 
   modalBtnList.forEach(btn => {
       const current = chooseTodoType.getElementsByClassName("btn-active");
@@ -225,6 +226,18 @@ function createProjectModal() {
   return formElement;
 }
 
+function createNotesModal() {
+  const formElement = createForm();
+
+  const notesInput = createTextAreaElement('inputNotes', 'Notes', 'notes');
+  const submitButton = createSubmitButton('notes');
+
+  formElement.appendChild(notesInput);
+  formElement.appendChild(submitButton);
+
+  return formElement;
+}
+
 export default function () {
   const modalElement = document.createElement('div');
   modalElement.setAttribute('id', 'modal');
@@ -232,7 +245,7 @@ export default function () {
   const formModal = document.createElement('div');
   formModal.setAttribute('id', 'formModal');
 
-  let formElementList = [createTodoModal(), createProjectModal()];
+  let formElementList = [createTodoModal(), createProjectModal(), createNotesModal()];
   const cancelButton = createCancelButton(modalElement, ...formElementList);
 
   const header = document.createElement('div');
