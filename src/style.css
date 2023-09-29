@@ -48,17 +48,13 @@ button {
   flex: 1;
 }
 
-#project-section {
-  flex: 1;
-}
-
-#project-header, #notes-header {
+#project-header{
   height: 2rem;
   margin-bottom: 10px;
   display: flex;
 }
 
-#project-header > h4 , #notes-header > h4 {
+#project-header > h4{
   display: flex;
   align-items: center;
 }
@@ -70,13 +66,19 @@ button {
   gap: 8px;
 }
 
-#dashboard-section button, #project-list button {
+#dashboard-section button, #project-list button{
   padding: 10px;
   border-radius: 10px;
 }
 
-#dashboard-section button:hover, #project-list button:hover {
-  background-color: rgb(255, 235, 224);
+#dashboard-section button.btn-active, #project-list button.btn-active, #notes-section button.btn-active {
+  background-color: var(--color-primary-2);
+  color: var(--color-primary-1);
+}
+
+#dashboard-section button:hover, #project-list button:hover, #notes-section button:hover {
+  background-color: var(--color-primary-2);
+  color: var(--color-primary-1);
 }
 
 #nav {
@@ -340,14 +342,4 @@ input:focus, textarea:focus, select:focus {
 
 .card > .card-content > .card-date {
   flex: 1;
-}
-
-#dashboard-section button.btn-active, #project-list button.btn-active {
-  background-color: var(--color-primary-2);
-  color: var(--color-primary-1);
-}
-
-#dashboard-section button:hover, #project-list button:hover {
-  background-color: var(--color-primary-2);
-  color: var(--color-primary-1);
 }

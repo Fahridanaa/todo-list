@@ -1,6 +1,6 @@
 import isToday from "date-fns/isToday";
 import Card from "./Card";
-import { add, parseISO } from "date-fns";
+import { parseISO } from "date-fns";
 import addIcon from "./icon/add-outline.svg";
 
 function filterTodayTodo(todoData) {
@@ -149,27 +149,15 @@ function createProjectSection() {
   return projectSection;
 }
 
-function createNoteSection() {
-  const noteSection = document.createElement('div');
-  noteSection.setAttribute('id', 'notes-section');
-
-  const noteBtn = createButton('Notes');
-  
-  noteSection.appendChild(noteBtn);
-
-  return noteSection;
-}
-
 function createSidebar() {
   const sidebar = document.createElement('div');
   sidebar.setAttribute('id', 'sidebar');
 
-  const dashboard = createDashboardSection();
-  const project = createProjectSection();
-  const note = createNoteSection();
-  sidebar.appendChild(dashboard);
-  sidebar.appendChild(project);
-  sidebar.appendChild(note);
+  const sidebarContent = [createDashboardSection(), createProjectSection()];
+
+  sidebarContent.forEach(content => {
+    sidebar.appendChild(content);
+  });
 
   return sidebar;
 }
